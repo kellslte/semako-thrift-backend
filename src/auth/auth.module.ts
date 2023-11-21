@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
-import { AuthGuard } from './guards/auth.guard';
 import { AuthController } from './auth.controller';
 import { UserService } from 'src/user/user.service';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -22,14 +21,7 @@ import { User, UserSchema } from 'src/models/user.model';
       },
     ]),
   ],
-  providers: [
-    AuthService,
-    {
-      provide: 'APP_GUARD',
-      useClass: AuthGuard,
-    },
-    UserService,
-  ],
+  providers: [AuthService, UserService],
   controllers: [AuthController],
 })
 export class AuthModule {}
